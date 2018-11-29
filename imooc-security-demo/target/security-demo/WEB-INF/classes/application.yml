@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    password: 123456
+    username: root
+    url: jdbc:mysql://192.168.56.101:3306/imooc-demo?useUnicode=yes&characterEncoding=UTF-8&useSSL=false
+
+  session:
+    store-type: none
+
+#spring boot ?????????????
+security:
+  basic:
+    enabled: false
+
