@@ -3,8 +3,10 @@ package com.imooc.web.controller;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.imooc.dto.User;
 import com.imooc.dto.UserQueryCondition;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +28,7 @@ public class UserController {
         users.add(new User("1","12"));
         return users;
     }
-    @GetMapping("/{id}")
+    @GetMapping("/{id:\\d+}")
     @JsonView(User.UserDetailView.class)
     public User getInfo(@PathVariable String id){
         System.out.println(id);
@@ -36,8 +38,15 @@ public class UserController {
         return user;
     }
 
-    @PostMapping("/register")
-    public void register() {
+    @PostMapping("/create")
+    public User create(@Valid @RequestBody User user, BindingResult errors) {
 
+        if (errors.hasErrors()){
+            errors.getAllErrors().stream().forEach(error -> System.out.println(error.getDefaultMessage()));
+        }
+
+        System.out.println(user.getBirthday());
+        user.setId("1");
+        return user;
     }
 }
